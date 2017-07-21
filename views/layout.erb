@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.1.2/foundation.min.css">
+    <link rel="stylesheet" type="text/css" href="./style.css"/>
+
+    <title>Roadtrip Pal</title>
+  </head>
+
+  <body>
+
+    <div class="top-bar">
+      <ul class="dropdown menu" data-dropdown-menu>
+        <li class="menu-text">Roadtrip Pal</li>
+        <li><a href="/index">Home</a></li>
+        <li><a href="/mylocation">My location</a></li>
+        <li><a href="/roadtrip">Roadtrip</a></li>
+      </ul>
+    </div>
+
+    <%= yield %>
+
+  </body>
+</html>
