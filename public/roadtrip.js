@@ -1,4 +1,4 @@
-let myCurrentLocation; //declaring variable to store the coordinates
+let myCurrentLocation;
 let map, infoWindow;
 
 //starting the location checking
