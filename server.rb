@@ -1,6 +1,5 @@
 require 'dotenv/load'
 require "sinatra"
-require 'pry'
 
 GOOGLE_KEY = ENV['GOOGLE_KEY']
 
