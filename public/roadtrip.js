@@ -84,7 +84,7 @@ initMap = () => {
                 //     results[j].duration.text + '<br>';
 
               outputDiv.innerHTML += `
-                <div class="row small-9">
+                <div class="row small-12">
                   <div class="card">
                     <div class="card-divider">
                       PART ${j+1}:
