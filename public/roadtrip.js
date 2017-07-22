@@ -3,7 +3,7 @@ let map, infoWindow;
 let getOrigin, getWaypoints;
 // let waypoints;
 
-fetch('http://localhost/api')
+fetch('/api')
   .then(response => {
     if (response.ok) {
       return response;
