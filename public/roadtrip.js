@@ -1,5 +1,25 @@
 let myCurrentLocation;
 let map, infoWindow;
+let getOrigin, getWaypoints;
+
+fetch('http://localhost:4567/api')
+  .then(response => {
+    if (response.ok) {
+      return response;
+    } else {
+      let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage);
+      throw(error);
+    }
+  })
+  .then(response => response.text())
+  .then(body => {
+    let bodyParsed = JSON.parse(body);
+    debugger
+    getOrigin = bodyParsed[0][0][1]
+    getWaypoints = bodyParsed[1]
+    })
+  .catch(error => console.error(`Error in fetch: ${error.message}`));
 
 //starting the location checking
 initMap = () => {
@@ -28,8 +48,10 @@ initMap = () => {
 
         let calculateAndDisplayRoute = (directionsService, directionsDisplay) => {
           directionsService.route({
-            origin: myCurrentLocation,
-            destination: myCurrentLocation,
+            // origin: myCurrentLocation,
+            // destination: myCurrentLocation,
+            origin: getOrigin,
+            destination: getOrigin,
             travelMode: 'DRIVING',
             waypoints: [
               {
