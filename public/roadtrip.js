@@ -33,9 +33,13 @@ fetch('/api')
   .then(response => response.text())
   .then(body => {
     let bodyParsed = JSON.parse(body);
-    getOrigin = bodyParsed[0][0][1]
-    getWaypoints = bodyParsed[1]
+    if (bodyParsed[0][0][1].trim() != '') {
+      getOrigin = bodyParsed[0][0][1]
+    } else {
+      getOrigin = 'Boston, MA'
+    }
 
+    getWaypoints = bodyParsed[1]
     getWaypoints.forEach ((point) => {
       if (point[1].trim() != '') {
         allWaypointsObjects.push({ 'location': point[1], 'stopover': true })
