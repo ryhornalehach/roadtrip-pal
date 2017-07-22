@@ -1,6 +1,7 @@
 let myCurrentLocation;
 let map, infoWindow;
 let getOrigin, getWaypoints;
+// let waypoints;
 
 fetch('http://localhost:4567/api')
   .then(response => {
@@ -15,9 +16,12 @@ fetch('http://localhost:4567/api')
   .then(response => response.text())
   .then(body => {
     let bodyParsed = JSON.parse(body);
-    debugger
     getOrigin = bodyParsed[0][0][1]
     getWaypoints = bodyParsed[1]
+    // getWaypoints.forEach ((waypoint) => {
+    //   waypoints << {'location': waypoint, 'stopover': true }
+    // })
+    // debugger
     })
   .catch(error => console.error(`Error in fetch: ${error.message}`));
 
@@ -55,13 +59,14 @@ initMap = () => {
             travelMode: 'DRIVING',
             waypoints: [
               {
-                location: 'Montreal, QC, Canada',
+                // location: 'Montreal, QC, Canada',
+                location: getWaypoints[0][1],
                 stopover: true
               },{
-                location: 'Quebec, QC, Canada',
+                location: getWaypoints[1][1],
                 stopover: true
               },{
-                location: 'Bar Harbor, ME',
+                location: getWaypoints[2][1],
                 stopover: true
               }],
             optimizeWaypoints: true
