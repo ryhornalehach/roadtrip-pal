@@ -3,6 +3,7 @@ let map, infoWindow;
 let getOrigin, getWaypoints, allWaypoints;
 let totalDistance = 0;
 let totalDuration = 0;
+let allWaypointsObjects = [];
 
 class TotalTime {
   constructor(duration) {
@@ -10,7 +11,7 @@ class TotalTime {
   }
   hours() {
     if (this.duration < 3600) {
-      return `${this.duration / 60 } mins`
+      return `${(this.duration / 60 ).toFixed(0)} mins`
     } else {
       let hours = Math.trunc(this.duration / 3600);
       let minutes = this.duration % 3600;
@@ -18,8 +19,6 @@ class TotalTime {
     }
   }
 }
-
-
 
 fetch('/api')
   .then(response => {
@@ -36,18 +35,13 @@ fetch('/api')
     let bodyParsed = JSON.parse(body);
     getOrigin = bodyParsed[0][0][1]
     getWaypoints = bodyParsed[1]
-    allWaypoints = [
-                  {
-                    location: getWaypoints[0][1],
-                    stopover: true
-                  },{
-                    location: getWaypoints[1][1],
-                    stopover: true
-                  },{
-                    location: getWaypoints[2][1],
-                    stopover: true
-                  }];
+
+    getWaypoints.forEach ((point) => {
+      if (point[1].trim() != '') {
+        allWaypointsObjects.push({ 'location': point[1], 'stopover': true })
+      }
     })
+  })
   .catch(error => console.error(`Error in fetch: ${error.message}`));
 
 //starting the location checking
@@ -80,7 +74,7 @@ initMap = () => {
             origin: getOrigin,
             destination: getOrigin,
             travelMode: 'DRIVING',
-            waypoints: allWaypoints,
+            waypoints: allWaypointsObjects,
             optimizeWaypoints: true
           }, function(response, status) {
             if (status === 'OK') {
