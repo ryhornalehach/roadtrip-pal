@@ -1,1 +1,1 @@
-web: bundle exec 
+web: bundle install
