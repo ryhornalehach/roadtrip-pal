@@ -33,11 +33,7 @@ fetch('/api')
   .then(response => response.text())
   .then(body => {
     let bodyParsed = JSON.parse(body);
-    if (bodyParsed[0][0][1].trim() != '') {
-      getOrigin = bodyParsed[0][0][1]
-    } else {
-      getOrigin = 'Boston, MA'
-    }
+    getOrigin = bodyParsed[0][0][1]
 
     getWaypoints = bodyParsed[1]
     getWaypoints.forEach ((point) => {
@@ -56,6 +52,9 @@ initMap = () => {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
+      if (getOrigin.trim() == '') {
+        getOrigin = myCurrentLocation;
+      }
 
 //using the timeout in order for the location to come first and then execute the code
       setTimeout ((x)=>{
