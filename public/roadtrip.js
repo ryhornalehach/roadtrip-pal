@@ -1,6 +1,6 @@
 let myCurrentLocation;
 let map, infoWindow;
-let getOrigin, getWaypoints;
+let getOrigin, getWaypoints, allWaypoints;
 let totalDistance = 0;
 let totalDuration = 0;
 
@@ -19,18 +19,7 @@ class TotalTime {
   }
 }
 
-// let waypoints = [
-//               {
-//                 // location: 'Montreal, QC, Canada',
-//                 location: getWaypoints[0][1],
-//                 stopover: true
-//               },{
-//                 location: getWaypoints[1][1],
-//                 stopover: true
-//               },{
-//                 location: getWaypoints[2][1],
-//                 stopover: true
-//               }];
+
 
 fetch('/api')
   .then(response => {
@@ -47,10 +36,17 @@ fetch('/api')
     let bodyParsed = JSON.parse(body);
     getOrigin = bodyParsed[0][0][1]
     getWaypoints = bodyParsed[1]
-    // getWaypoints.forEach ((waypoint) => {
-    //   waypoints << {'location': waypoint, 'stopover': true }
-    // })
-    // debugger
+    allWaypoints = [
+                  {
+                    location: getWaypoints[0][1],
+                    stopover: true
+                  },{
+                    location: getWaypoints[1][1],
+                    stopover: true
+                  },{
+                    location: getWaypoints[2][1],
+                    stopover: true
+                  }];
     })
   .catch(error => console.error(`Error in fetch: ${error.message}`));
 
@@ -81,23 +77,10 @@ initMap = () => {
 
         let calculateAndDisplayRoute = (directionsService, directionsDisplay) => {
           directionsService.route({
-            // origin: myCurrentLocation,
-            // destination: myCurrentLocation,
             origin: getOrigin,
             destination: getOrigin,
             travelMode: 'DRIVING',
-            waypoints: [
-              {
-                // location: 'Montreal, QC, Canada',
-                location: getWaypoints[0][1],
-                stopover: true
-              },{
-                location: getWaypoints[1][1],
-                stopover: true
-              },{
-                location: getWaypoints[2][1],
-                stopover: true
-              }],
+            waypoints: allWaypoints,
             optimizeWaypoints: true
           }, function(response, status) {
             if (status === 'OK') {
