@@ -79,9 +79,23 @@ initMap = () => {
               let results = response.routes[0].legs;
               for (var j = 0; j < results.length; j++) {
 
-                outputDiv.innerHTML += `STEP ${j+1}: <strong>From:</strong>` + results[j].start_address + ' <strong>to</strong> ' + results[j].end_address +
-                    '; <strong>Distance:</strong> ' + results[j].distance.text + ' <strong>in</strong> ' +
-                    results[j].duration.text + '<br>';
+                // outputDiv.innerHTML += `STEP ${j+1}: <strong>From:</strong>` + results[j].start_address + ' <strong>to</strong> ' + results[j].end_address +
+                //     '; <strong>Distance:</strong> ' + results[j].distance.text + ' <strong>in</strong> ' +
+                //     results[j].duration.text + '<br>';
+
+              outputDiv.innerHTML += `
+                <div class="row small-9">
+                  <div class="card">
+                    <div class="card-divider">
+                      PART ${j+1}:
+                    </div>
+                    <div class="card-section">
+                      <p><strong>From:</strong> ${results[j].start_address} <strong>to</strong> ${results[j].end_address}</p>
+                      <p><strong>Distance:</strong> ${results[j].distance.text} <strong>in</strong> ${results[j].duration.text}</p>
+                    </div>
+                  </div>
+                </div>
+                `
               }
 
 
